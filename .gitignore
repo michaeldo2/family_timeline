@@ -8,3 +8,5 @@
 
 *.log
 *.pot
+
+/family_timeline/staticfiles/

@@ -5,11 +5,11 @@
 {% block content %}
 	<link rel="stylesheet" type="text/css" href="{% static 'timeline/style.css' %}" />
 	{% if events %}
-	    <ul>
+	    <div>
 	    	{% for year, events in events %}
 			    <h1>{{ year }}</h1>
 			    {% for event in events %}
-			        <a class="timeline_event_link" href="/timeline/event/{{ event.id }}/">
+			        <a class="timeline_event_link" href="/event/{{ event.id }}/">
 			        	<div class="timeline_event">{{ event.name }}</div>
 			        </a>
 			        {% if event.image %}
@@ -17,7 +17,7 @@
 			        {% endif %}
 			    {% endfor %}
 		    {% endfor %}
-	    </ul>
+	    </div>
 	{% else %}
 	    <p>No Events are available.</p>
 	{% endif %}

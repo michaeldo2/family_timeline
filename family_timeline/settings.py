@@ -28,7 +28,7 @@ SECRET_KEY = 'c#zge(n4r8vq48i@z@b-69npxdl510$l(nohn6ebk_ye=#*ymt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['radiant-woodland-59631.herokuapp.com']
+ALLOWED_HOSTS = ['radiant-woodland-59631.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -125,9 +125,6 @@ USE_TZ = True
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,'templates'),
-    )
 
 STATIC_URL = '/static/'
 
