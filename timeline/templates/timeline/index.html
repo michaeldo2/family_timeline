@@ -1,0 +1,10 @@
+{% if event_list %}
+    <ul>
+    {% for event in event_list %}
+        <li><a href="/timeline/event/{{ event.id }}/">{{ event.name }}</a></li>
+        <img src={{ event.image }} />
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Events are available.</p>
+{% endif %}
