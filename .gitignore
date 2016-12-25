@@ -10,3 +10,8 @@
 *.pot
 
 /family_timeline/staticfiles/
+/node_modules/
+
+/timeline/static/bundles/*
+
+/webpack-stats-local.json

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'timeline.apps.TimelineConfig'
+    'timeline.apps.TimelineConfig',
+    'webpack_loader'
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'family_timeline.wsgi.application'
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/local/',  # end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-local.json'),
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -123,9 +130,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
-STATIC_URL = '/static/'
+STATIC_URL = '/timeline/static/'
 
 STATIC_ROOT = os.path.join(PROJECT_PATH, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'timeline/static'),
+]

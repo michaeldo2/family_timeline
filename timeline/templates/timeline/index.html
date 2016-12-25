@@ -1,9 +1,13 @@
 
 {% extends 'timeline/base.html' %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 
 {% block content %}
 	<link rel="stylesheet" type="text/css" href="{% static 'timeline/style.css' %}" />
+	<div id="App"></div>
+	{% render_bundle 'vendors' %}
+	{% render_bundle 'App' %}
 	{% if events %}
 	    <div>
 	    	{% for year, events in events %}
