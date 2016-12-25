@@ -1,5 +1,12 @@
 <h1>{{ event.name }}</h1>
-
 <p>Added by {{ event.publisher }} on {{ event.pub_date }}</p>
-
 <p>{{ event.description }}</p>
+
+<hr>
+
+<h3>Stories</h3>
+{% for story in event.stories.all %}
+	<h4>{{ story.publisher }}</h4>
+	<p>{{ story.pub_date }}</p>
+	<p>{{ story.description }}</p>
+{% endfor %}

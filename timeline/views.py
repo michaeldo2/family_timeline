@@ -10,9 +10,21 @@ from .models import Story
 # Create your views here.
 
 def index(request):
-    event_list = Event.objects.all()
+    event_list = Event.objects.order_by('date')
+    print event_list
+    
+    # bucket events by year in dictionary(year->[events])
+    bucketed_by_year = {}
+    for event in event_list:
+    	year = event.date.year
+    	if year not in bucketed_by_year:
+    		bucketed_by_year[year] = []
+    	bucketed_by_year[year].append(event)
+
+    print bucketed_by_year
+
     context = {
-        'event_list': event_list,
+        'events': sorted(bucketed_by_year.iteritems()),
     }
     return render(request, 'timeline/index.html', context)
 
