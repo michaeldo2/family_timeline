@@ -1,0 +1,9 @@
+.timeline_event {
+	color: white;
+	border: 1px grey;
+
+}
+
+.timeline_event_link {
+	text-decoration: none;
+}

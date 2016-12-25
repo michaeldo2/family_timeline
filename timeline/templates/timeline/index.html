@@ -1,13 +1,24 @@
-{% if events %}
-    <ul>
-    {% for year, events in events %}
-    	<h1>{{ year }}</h1>
-    	{% for event in events %}
-	        <li><a href="/timeline/event/{{ event.id }}/">{{ event.name }}</a></li>
-	        {% if event.image %}<img src={{ event.image }} />{% endif %}
-        {% endfor %}
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No Events are available.</p>
-{% endif %}
+
+{% extends 'timeline/base.html' %}
+{% load static %}
+
+{% block content %}
+	<link rel="stylesheet" type="text/css" href="{% static 'timeline/style.css' %}" />
+	{% if events %}
+	    <ul>
+	    	{% for year, events in events %}
+			    <h1>{{ year }}</h1>
+			    {% for event in events %}
+			        <a class="timeline_event_link" href="/timeline/event/{{ event.id }}/">
+			        	<div class="timeline_event">{{ event.name }}</div>
+			        </a>
+			        {% if event.image %}
+			        	<img src={{ event.image }} />
+			        {% endif %}
+			    {% endfor %}
+		    {% endfor %}
+	    </ul>
+	{% else %}
+	    <p>No Events are available.</p>
+	{% endif %}
+{% endblock %}
