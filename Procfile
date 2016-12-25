@@ -1,2 +1,2 @@
-web: gunicorn family_timeline.wsgi
+web: gunicorn --log-file=- family_timeline.wsgi:application
 
