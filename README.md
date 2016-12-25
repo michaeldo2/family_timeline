@@ -1,3 +1,5 @@
 # family_timeline
-jajaja
-dsadsdsadsadasda
+
+- run `npm install`
+- run `webpack -p --config ./webpack.local.config.js --progress`
+- run `pip install -r requirements.txt`

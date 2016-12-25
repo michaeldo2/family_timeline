@@ -3,11 +3,11 @@ import { render } from "react-dom"
 
 
 class App extends React.Component {
-  render() {
-    return (
-      <div> this is react </div>
-    )
-  }
+    render() {
+        return (
+            <div> React Component goes here </div>
+        )
+    }
 }
 
 render(<App/>, document.getElementById('App'));

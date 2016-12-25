@@ -15,3 +15,5 @@
 /timeline/static/bundles/*
 
 /webpack-stats-local.json
+
+/static
