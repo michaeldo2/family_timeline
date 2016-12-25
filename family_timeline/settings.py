@@ -135,6 +135,3 @@ STATIC_URL = '/timeline/static/'
 
 STATIC_ROOT = os.path.join(PROJECT_PATH, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'timeline/static'),
-]
