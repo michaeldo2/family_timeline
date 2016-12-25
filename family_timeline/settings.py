@@ -133,5 +133,5 @@ USE_TZ = True
 
 STATIC_URL = '/timeline/static/'
 
-STATIC_ROOT = os.path.join(PROJECT_PATH, 'staticfiles')
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'timeline/static/')
 
