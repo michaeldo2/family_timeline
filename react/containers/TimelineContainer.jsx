@@ -9,13 +9,14 @@ class TimelineContainer extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			events: []
+			events: {}
 		}
 	}
 
 	componentWillMount() {
 		var self = this;
 		RequestHelper.getTimelineEvents().then(function (response) {
+			console.log(response)
 			if (response.data) {
 				self.setState({
 					events: response.data
@@ -26,7 +27,7 @@ class TimelineContainer extends React.Component {
 	}
 
     render() {
-    	if (this.state.events.length) {
+    	if (Object.keys(this.state.events).length) {
         	return (<Timeline events={this.state.events} />);
         } else {
         	return <CircularProgress />
