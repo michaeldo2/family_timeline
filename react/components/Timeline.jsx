@@ -1,16 +1,17 @@
 import React from "react"
-import EventContainer from "../containers/EventContainer"
+import YearEventList from "../components/YearEventList"
 
 class Timeline extends React.Component {
 
     render() {
     	var events = this.props.events;
-    	var eventComponents = events.map(function(event, index) {
-    		return (<EventContainer event={event} key={index} />);
-    	});
+    	var yearEventComponents = [];
+        Object.keys(events).forEach(function(year, index) {
+            yearEventComponents.push(<YearEventList year={year} events={events[year]} key={index}/>);
+        });
     	return (
     		<div>
-    			{eventComponents}
+    			{yearEventComponents}
     		</div>
     	);
     }
