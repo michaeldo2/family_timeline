@@ -1,6 +1,7 @@
 import React from "react"
 import RequestHelper from "../helpers/RequestHelper"
 import Timeline from "../components/Timeline"
+import CircularProgress from "material-ui/CircularProgress";
 
 
 class TimelineContainer extends React.Component {
@@ -15,7 +16,6 @@ class TimelineContainer extends React.Component {
 	componentWillMount() {
 		var self = this;
 		RequestHelper.getTimelineEvents().then(function (response) {
-			console.log(response.data);
 			if (response.data) {
 				self.setState({
 					events: response.data
@@ -29,7 +29,7 @@ class TimelineContainer extends React.Component {
     	if (this.state.events.length) {
         	return (<Timeline events={this.state.events} />);
         } else {
-        	return (<div> No Events! </div>);
+        	return <CircularProgress />
         }
     }
 }

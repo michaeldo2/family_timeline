@@ -23,8 +23,7 @@ class EventContainer extends React.Component {
     	if (this.state.showDetails) {
         	return (
         		<div>
-        			<Event id={event.id} name={event.name} date={event.date} toggleDetails={this.toggleDetails.bind(this)} />
-        			<div> Details </div>
+        			<Event id={event.id} name={event.name} date={event.date} description={event.description} toggleDetails={this.toggleDetails.bind(this)} />
         		</div>
         	);
         } else {
