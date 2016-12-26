@@ -88,6 +88,15 @@ def event(request, event_id):
 def event(request):
     """
     Create an event and insert it into database
+    Required Fields:
+     - name
+     - event_description
+     - year
+
+    Optional Fields:
+     - date
+     - image
+     - story_description
     """
     if request.method == POST:
         # Shared Fields
