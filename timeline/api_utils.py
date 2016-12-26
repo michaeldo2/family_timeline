@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 """
 Helper functions for API to extract fields into dictionaries and lists
 """
@@ -10,9 +12,12 @@ def get_event_dict(event_obj):
     event['name'] = event_obj.name
     event['description'] = event_obj.description
     event['date'] = event_obj.date.isoformat() if event_obj.date else None
+    event['publisher'] = get_user_dict(event_obj.publisher)
+    event['stories'] = [get_story_dict(story) for story in event_obj.stories.all()]
     event['num_stories'] = len(event_obj.stories.all())
 
     return event
+
 
 def get_user_dict(user_obj):
     user = {}
@@ -24,3 +29,13 @@ def get_user_dict(user_obj):
 
     return user
 
+
+def get_story_dict(story_obj):
+    story = {}
+
+    # Story Fields to be Returned
+    story['id'] = story_obj.id
+    story['description'] = story_obj.description
+    story['publisher'] = get_user_dict(story_obj.publisher)
+
+    return story

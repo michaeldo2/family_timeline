@@ -39,9 +39,6 @@ def events(request):
             if year not in events_by_year:
                 events_by_year[year] = []
             event = get_event_dict(event_obj)
-            user_obj = event_obj.publisher
-            user = get_user_dict(user_obj)
-            event['publisher'] = user
             events_by_year[year].append(event)
 
         data = json.dumps(events_by_year)
