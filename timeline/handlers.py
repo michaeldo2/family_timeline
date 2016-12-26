@@ -3,6 +3,7 @@ import json
 from django.http import HttpResponse
 from django.core import serializers
 from django.utils.encoding import force_text
+from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
@@ -29,6 +30,10 @@ def events(request):
      - description
      - date
      - id
+     - [stories]
+        - id
+        - publisher
+        - description
      - num_stories
     """
     if request.method == GET:
@@ -59,6 +64,10 @@ def event(request, event_id):
      - description
      - date
      - id
+     - [stories]
+        - id
+        - publisher
+        - description
      - num_stories
     """
     if request.method == GET:
@@ -79,34 +88,53 @@ def event(request, event_id):
 def event(request):
     """
     Create an event and insert it into database
+    Required Fields:
+     - name
+     - event_description
+     - year
+
+    Optional Fields:
+     - date
+     - image
+     - story_description
     """
     if request.method == POST:
-        print request.body
-        print request.POST
+        # Shared Fields
+        logged_in_user = User.objects.get(pk=2)
+
+        # Event Fields
         name = request.POST.get('name')
-        description = request.POST.get('description')
+        event_description = request.POST.get('event_description')
         year = request.POST.get('year')
         date = request.POST.get('date')
         image = request.POST.get('image')
-        publisher = User.objects.get(pk=1)
+        index = len(Event.objects.filter(year=year)) # add to end of list
 
-        num_events_in_year = len(Event.objects.filter(year=year))
-        index = num_events_in_year
+        # Story Fields
+        story_description = request.POST.get('story_description')
 
         new_event = Event(
                         name = name,
-                        description = description,
+                        description = event_description,
                         year = year,
                         date = date,
                         image = image,
-                        publisher = publisher,
+                        publisher = logged_in_user,
                         index = index
                     )
 
         new_event.save()
+
+        if (story_description):
+            new_story = Story(
+                            event = new_event,
+                            description = story_description,
+                            publisher = logged_in_user
+                        )
+
+            new_story.save()
         
         return HttpResponse("Success")
 
     else:
-        print request.GET
         raise ValueError('Unsupported HTTP Request Method')
