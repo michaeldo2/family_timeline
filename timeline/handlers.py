@@ -20,7 +20,7 @@ GET = 'GET'
 
 def events(request):
     """
-    Returns the following event fields:
+    Returns a list following event fields:
      - publisher
         - first_name
         - last_name
@@ -32,16 +32,19 @@ def events(request):
      - num_stories
     """
     if request.method == GET:
-        event_objs = Event.objects.all()
-        events = []
+        event_objs = Event.objects.order_by('date')
+        events_by_year = {}
         for event_obj in event_objs:
+            year = event_obj.year
+            if year not in events_by_year:
+                events_by_year[year] = []
             event = get_event_dict(event_obj)
             user_obj = event_obj.publisher
             user = get_user_dict(user_obj)
             event['publisher'] = user
-            events.append(event)
+            events_by_year[year].append(event)
 
-        data = json.dumps(events)
+        data = json.dumps(events_by_year)
         return HttpResponse(data, content_type="application/json")
 
     else:

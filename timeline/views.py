@@ -11,7 +11,6 @@ from .models import Story
 
 def index(request):
     event_list = Event.objects.order_by('date')
-    print event_list
     
     # bucket events by year in dictionary(year->[events])
     bucketed_by_year = {}
@@ -20,8 +19,6 @@ def index(request):
     	if year not in bucketed_by_year:
     		bucketed_by_year[year] = []
     	bucketed_by_year[year].append(event)
-
-    print bucketed_by_year
 
     context = {
         'events': sorted(bucketed_by_year.iteritems()),
