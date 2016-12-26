@@ -5,6 +5,10 @@ import FlatButton from 'material-ui/FlatButton';
 
 class ViewContainer extends React.Component {
     render() {
+    	var timelineStyle = {
+    		padding: '0 16px'
+    	}
+
     	return (
 	    	<div>
 	    		<AppBar 
@@ -12,7 +16,10 @@ class ViewContainer extends React.Component {
 	    			iconElementRight={<FlatButton label="New Event" />}
 	    			
 	    		/>
-	    		<TimelineContainer />
+
+	    		<div style={timelineStyle}>
+	    			<TimelineContainer />
+	    		</div>
 	    	</div>
 	    );
     }
