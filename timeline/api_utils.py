@@ -9,7 +9,7 @@ def get_event_dict(event_obj):
     event['id'] = event_obj.id
     event['name'] = event_obj.name
     event['description'] = event_obj.description
-    event['date'] = event_obj.date.isoformat()
+    event['date'] = event_obj.date.isoformat() if event_obj.date else None
     event['num_stories'] = len(event_obj.stories.all())
 
     return event
