@@ -8,21 +8,4 @@
 	<div id="App"></div>
 	{% render_bundle 'vendors' %}
 	{% render_bundle 'App' %}
-	{% if events %}
-	    <div>
-	    	{% for year, events in events %}
-			    <h1>{{ year }}</h1>
-			    {% for event in events %}
-			        <a class="timeline_event_link" href="/event/{{ event.id }}/">
-			        	<div class="timeline_event">{{ event.name }}</div>
-			        </a>
-			        {% if event.image %}
-			        	<img src={{ event.image }} />
-			        {% endif %}
-			    {% endfor %}
-		    {% endfor %}
-	    </div>
-	{% else %}
-	    <p>No Events are available.</p>
-	{% endif %}
 {% endblock %}

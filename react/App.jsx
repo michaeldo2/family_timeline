@@ -1,11 +1,11 @@
 import React from "react"
 import { render } from "react-dom"
-
+import TimelineContainer from "./containers/TimelineContainer"
 
 class App extends React.Component {
     render() {
         return (
-            <div> React Component goes here </div>
+            <TimelineContainer />
         )
     }
 }
