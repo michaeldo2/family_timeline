@@ -28,7 +28,7 @@ class Story(models.Model):
 	event = models.ForeignKey(Event, related_name="stories")
 	publisher = models.ForeignKey(User, related_name="stories")
 	description = models.TextField()
-	pub_date = models.DateTimeField()
+	pub_date = models.DateTimeField(default=datetime.now, blank=True)
 
 	def __str__(self):
 		return self.event.name + " by " + self.publisher.username
