@@ -15,7 +15,7 @@ def index(request):
     # bucket events by year in dictionary(year->[events])
     bucketed_by_year = {}
     for event in event_list:
-    	year = event.date.year
+    	year = event.year
     	if year not in bucketed_by_year:
     		bucketed_by_year[year] = []
     	bucketed_by_year[year].append(event)
