@@ -3,7 +3,10 @@ import json
 from django.http import HttpResponse
 from django.core import serializers
 from django.utils.encoding import force_text
+from django.contrib.auth.models import User
 
+from .api_utils import get_event_dict
+from .api_utils import get_user_dict
 from .models import Comment
 from .models import Event
 from .models import Story
@@ -15,19 +18,23 @@ GET = 'GET'
 # Create your api handlers here.
 
 def events(request):
+    """
+    Returns the following event fields:
+     - publisher
+     - name
+     - description
+     - date
+     - id
+     - num_stories
+    """
     if request.method == GET:
         event_objs = Event.objects.all()
         events = []
         for event_obj in event_objs:
-            event = {}
-
-            # Event Fields to be Returned
-            event['id'] = event_obj.id
-            event['name'] = event_obj.name
-            event['description'] = event_obj.description
-            event['date'] = event_obj.date.isoformat()
-            event['num_stories'] = len(event_obj.stories.all())
-
+            event = get_event_dict(event_obj)
+            user_obj = event_obj.publisher
+            user = get_user_dict(user_obj)
+            event['publisher'] = user
             events.append(event)
 
         data = json.dumps(events)
@@ -39,8 +46,13 @@ def events(request):
 
 def event(request, event_id):
     if request.method == GET:
-        event = Event.objects.filter(pk=event_id)
-        data = serializers.serialize("json", event)
+        event_obj = Event.objects.get(pk=event_id)
+        event = get_event_dict(event_obj)
+        user_obj = event_obj.publisher
+        user = get_user_dict(user_obj)
+        event['publisher'] = user
+        
+        data = json.dumps(event)
         return HttpResponse(data, content_type="application/json")
 
     else:
