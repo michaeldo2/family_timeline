@@ -27,7 +27,7 @@ GET = 'GET'
 
 # Create your api handlers here.
 
-def events(request):
+def get_timeline_entries(request):
     if request.method == GET:
         entry_objs = TimelineEntry.objects.order_by('year', 'index').select_subclasses()
         entries_by_year = {}
@@ -45,23 +45,8 @@ def events(request):
         raise ValueError('Unsupported HTTP Request Method')
 
 
-def event(request, event_id):
-    if request.method == GET:
-        event_obj = Event.objects.get(pk=event_id)
-        event = get_event_dict(event_obj)
-        user_obj = event_obj.publisher
-        user = get_user_dict(user_obj)
-        event['publisher'] = user
-
-        data = json.dumps(event)
-        return HttpResponse(data, content_type="application/json")
-
-    else:
-        raise ValueError('Unsupported HTTP Request Method')
-
-
 @csrf_exempt
-def family_event(request):
+def add_family_event(request):
     """
     Create a family event and insert it into database
     Required Fields:
@@ -120,7 +105,7 @@ def family_event(request):
 
 
 @csrf_exempt
-def historical_event(request):
+def add_historical_event(request):
     """
     Create a historical event and insert it into database
     Required Fields:
@@ -168,7 +153,7 @@ def historical_event(request):
 
 
 @csrf_exempt
-def timeline_story(request):
+def add_timeline_story(request):
     """
     Create a timeline story and insert it into database
     Required Fields:

@@ -3,18 +3,15 @@ from django.conf.urls import url
 from . import handlers
 
 urlpatterns = [
-	# GET - get all events in the timeline
-    url(r'^events/$', handlers.events),
-
-    # GET - get the event with id
-    url(r'^event/(?P<event_id>[0-9]+)$', handlers.event),
+	# GET - get all entries in the timeline
+    url(r'^events/$', handlers.get_timeline_entries),
 
     # POST - add a family event
-    url(r'^family_event/$', handlers.family_event),
+    url(r'^family_event/$', handlers.add_family_event),
 
     # POST - add a historical event
-    url(r'^historical_event/$', handlers.historical_event),
+    url(r'^historical_event/$', handlers.add_historical_event),
 
     # POST - add a timeline story
-    url(r'^timeline_story/$', handlers.timeline_story),
+    url(r'^timeline_story/$', handlers.add_timeline_story),
 ]
