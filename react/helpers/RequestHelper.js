@@ -11,7 +11,26 @@ function getTimelineEvents() {
 	})
 }
 
+function createEvent(name, description, year) {
+	return axios.post('api/family_event/', JSON.stringify({
+		name: name,
+		event_description: description,
+		year: year
+	}), {
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	}).then(function (response) {
+		return response;
+	})
+	.catch(function (error) {
+		console.log(error);
+		return null;
+	})
+
+
+}
+
 
 module.exports = {
-	getTimelineEvents: getTimelineEvents
+	getTimelineEvents: getTimelineEvents,
+	createEvent: createEvent
 }

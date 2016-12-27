@@ -1,7 +1,8 @@
 import TimelineContainer from "./TimelineContainer";
 import React from "react"
 import AppBar from "material-ui/AppBar";
-import FlatButton from 'material-ui/FlatButton';
+import AddEventContainer from "./AddEventContainer"
+
 
 class ViewContainer extends React.Component {
     render() {
@@ -13,7 +14,7 @@ class ViewContainer extends React.Component {
 	    	<div>
 	    		<AppBar 
 	    			title="Family Timeline"
-	    			iconElementRight={<FlatButton label="New Event" />}
+	    			iconElementRight={<AddEventContainer/>}
 	    			
 	    		/>
 
