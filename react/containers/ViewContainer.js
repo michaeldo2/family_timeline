@@ -1,19 +1,45 @@
 import TimelineContainer from "./TimelineContainer";
 import React from "react"
 import AppBar from "material-ui/AppBar";
-import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
+import AddEventContainer from "./AddEventContainer"
+import RequestHelper from "../helpers/RequestHelper"
+import Paper from "material-ui/Paper";
+
 
 class ViewContainer extends React.Component {
+
+	constructor() {
+		super()
+		this.state = {
+			events: {}
+		}
+	}
+
+	componentWillMount() {
+		this.updateTimelineEvents();
+	}
+
+	updateTimelineEvents() {
+		var self = this;
+		RequestHelper.getTimelineEvents().then(function (response) {
+			console.log(response)
+			if (response.data) {
+				self.setState({
+					events: response.data || {}
+				});
+			}
+		})
+	}
+
     render() {
     	var timelineStyle = {
-    		padding: '0 48px'
+    		paddingLeft: '104px'
     	}
     	var lineStyle = {
     		height: '100%',
-    		width: '5px',
+    		width: '8px',
     		position: 'fixed',
-    		left: '32px',
+    		transform: 'translateX(52px)',
     		backgroundColor: '#0097A7'
 
     	}
@@ -23,10 +49,10 @@ class ViewContainer extends React.Component {
 	    		<Paper style={lineStyle} zDepth={2}/>
 	    		<AppBar 
 	    			title="Family Timeline"
-	    			iconElementRight={<FlatButton label="New Event" />}
+	    			iconElementRight={<AddEventContainer updateTimelineEvents={this.updateTimelineEvents.bind(this)}/>}
 	    		/>
 	    		<div style={timelineStyle}>
-	    			<TimelineContainer />
+	    			<TimelineContainer events={this.state.events}/>
 	    		</div>
 	    	</div>
 	    );

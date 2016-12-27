@@ -43,9 +43,9 @@ class YearEventList extends React.Component {
         var dotStyle = {
             backgroundColor: '#0097A7',
             position: 'absolute',
-            width: '25px',
-            height: '25px',
-            left: '22px'
+            width: '32px',
+            height: '32px',
+            transform: 'translateX(-80px)'
         }
 
         if (this.state.showEvents) {
