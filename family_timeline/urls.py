@@ -16,12 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.views import static
 
 urlpatterns = [
     url(r'^', include('timeline.urls')),
     url(r'^api/', include('timeline.api')),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/login/$', auth_views.login, {'template_name': 'admin/login.html'}),
     url(r'^static/(?P<path>.*)$', static.serve, {
     	'document_root': settings.STATIC_ROOT
     })

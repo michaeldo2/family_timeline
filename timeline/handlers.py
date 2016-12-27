@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.http import QueryDict
 from django.core import serializers
 from django.utils.encoding import force_text
-from django.contrib.auth import get_user
+
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
@@ -61,7 +61,7 @@ def add_family_event(request):
     """
     if request.method == POST:
         # Shared Fields
-        logged_in_user = User.objects.get(pk=1)
+        logged_in_user = request.user
 
         body = json.loads(request.body)
 
@@ -118,7 +118,7 @@ def add_historical_event(request):
      - link
     """
     if request.method == POST:
-        logged_in_user = User.objects.get(pk=1)
+        logged_in_user = request.user
 
         body = json.loads(request.body)
 
@@ -163,7 +163,7 @@ def add_timeline_story(request):
 
     """
     if request.method == POST:
-        logged_in_user = User.objects.get(pk=1)
+        logged_in_user = request.user
 
         print request.body
 
