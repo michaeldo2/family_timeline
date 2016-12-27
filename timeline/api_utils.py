@@ -31,7 +31,7 @@ def get_family_event_dict(family_event_obj):
     family_event['description'] = family_event_obj.description
     family_event['date'] = family_event_obj.date.isoformat() if family_event_obj.date else None
     family_event['publisher'] = get_user_dict(family_event_obj.publisher)
-    family_event['stories'] = [get_family_event_story_dict(family_eventstory) for family_event_story in family_event_obj.family_event_stories.all()]
+    family_event['stories'] = [get_family_event_story_dict(family_event_story) for family_event_story in family_event_obj.family_event_stories.all()]
     family_event['num_stories'] = len(family_event_obj.family_event_stories.all())
 
     return family_event
