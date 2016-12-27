@@ -73,7 +73,7 @@ def family_event(request):
     """
     if request.method == POST:
         # Shared Fields
-        logged_in_user = get_user(request.user)
+        logged_in_user = User.objects.get(pk=1)
 
         # Event Fields
         name = request.POST.get('name')
