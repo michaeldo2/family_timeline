@@ -2,44 +2,91 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
-
 from django.utils.encoding import python_2_unicode_compatible
 
-# Create your models here.
-
-@python_2_unicode_compatible
-class Event(models.Model):
-	name = models.CharField(max_length=100)
-	pub_date = models.DateTimeField(default=datetime.now, blank=True)
-	year = models.IntegerField()
-	date = models.DateField(null=True, blank=True)
-	index = models.IntegerField()
-	description = models.TextField(null=True, blank=True)
-	image = models.ImageField(null=True, blank=True)
-	publisher = models.ForeignKey(User, related_name="events_published")
+from model_utils.managers import InheritanceManager
 
 
-	def __str__(self):
-		return self.name
+class TimelineEntryTypes:
+    FAMILY_EVENT = 'FAMILY_EVENT'
+    HISTORICAL_EVENT = 'HISTORICAL_EVENT'
+    TIMELINE_STORY = 'TIMELINE_STORY'
+    TIMELINE_IMAGE = 'TIMELINE_IMAGE'
 
 
-@python_2_unicode_compatible
-class Story(models.Model):
-	event = models.ForeignKey(Event, related_name="stories")
-	publisher = models.ForeignKey(User, related_name="stories")
-	description = models.TextField()
-	pub_date = models.DateTimeField(default=datetime.now, blank=True)
+class TimelineEntry(models.Model):
+    year = models.IntegerField()
+    index = models.IntegerField()
+    entry_type = models.CharField(max_length=16)
 
-	def __str__(self):
-		return self.event.name + " by " + self.publisher.username
+    objects = InheritanceManager()
 
 
 @python_2_unicode_compatible
-class Comment(models.Model):
-	user = models.ForeignKey(User, related_name="comments")
-	event = models.ForeignKey(Event, related_name="comments")
-	pub_date = models.DateTimeField()
-	comment = models.TextField()
+class FamilyEvent(TimelineEntry):
+    # Required Fields
+    name = models.CharField(max_length=100)
+    publisher = models.ForeignKey(User, related_name="family_events")
+    pub_date = models.DateTimeField(default=datetime.now, blank=True)
 
-	def __str__(self):
-		return self.event.name + " by " + publisher.username
+    # Optional Fields
+    date = models.DateField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
+    
+    def __str__(self):
+        return "Family Event " + self.name
+
+
+@python_2_unicode_compatible
+class HistoricalEvent(TimelineEntry):
+    # Required Fields
+    name = models.CharField(max_length=100)
+    publisher = models.ForeignKey(User, related_name="historical_events")
+    pub_date = models.DateTimeField(default=datetime.now, blank=True)
+
+    # Optional Fields
+    date = models.DateField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
+    link = models.URLField(max_length=200)
+    
+    def __str__(self):
+        return "Historical Event " + self.name
+
+
+@python_2_unicode_compatible
+class TimelineImage(TimelineEntry):
+    # Required Fields
+    caption = models.CharField(max_length=200)
+    image = models.ImageField()
+
+    def __str__(self):
+        return "Image: " + caption
+
+
+class AbstractStory(models.Model):
+    # Required Fields
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    pub_date = models.DateTimeField(default=datetime.now, blank=True)
+
+    class Meta:
+        abstract = True
+
+
+@python_2_unicode_compatible
+class TimelineStory(TimelineEntry, AbstractStory):
+    publisher = models.ForeignKey(User, related_name="timeline_stories")
+    def __str__(self):
+        return "Timeline Story: " + self.name + " by " + self.publisher.username
+
+
+@python_2_unicode_compatible
+class FamilyEventStory(AbstractStory):
+    family_event = models.ForeignKey(FamilyEvent, related_name="family_event_stories")
+    publisher = models.ForeignKey(User, related_name="family_event_stories")
+
+    def __str__(self):
+        return "Family Event Story: " + self.family_event.name + " by " + self.publisher.username
+

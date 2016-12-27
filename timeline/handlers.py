@@ -7,11 +7,16 @@ from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
-from .api_utils import get_event_dict
-from .api_utils import get_user_dict
-from .models import Comment
-from .models import Event
-from .models import Story
+from .api_utils import get_entry_dict
+
+from .models import FamilyEvent
+from .models import HistoricalEvent
+from .models import TimelineImage
+from .models import TimelineStory
+from .models import FamilyEventStory
+from .models import TimelineEntry
+
+
 
 # Constants
 POST = 'POST'
@@ -37,16 +42,16 @@ def events(request):
      - num_stories
     """
     if request.method == GET:
-        event_objs = Event.objects.order_by('date')
-        events_by_year = {}
-        for event_obj in event_objs:
-            year = event_obj.year
-            if year not in events_by_year:
-                events_by_year[year] = []
-            event = get_event_dict(event_obj)
-            events_by_year[year].append(event)
+        entry_objs = TimelineEntry.objects.order_by('year', 'index').select_subclasses()
+        entries_by_year = {}
+        for entry_obj in entry_objs:
+            year = entry_obj.year
+            if year not in entries_by_year:
+                entries_by_year[year] = []
+            entry = get_entry_dict(entry_obj)
+            entries_by_year[year].append(entry)
 
-        data = json.dumps(events_by_year)
+        data = json.dumps(entries_by_year)
         return HttpResponse(data, content_type="application/json")
 
     else:
