@@ -17,6 +17,8 @@ from .models import TimelineStory
 from .models import FamilyEventStory
 from .models import TimelineEntry
 
+from .models import TimelineEntryTypes
+
 
 
 # Constants
@@ -76,7 +78,11 @@ def family_event(request):
         # Shared Fields
         logged_in_user = User.objects.get(pk=1)
 
+        print request.body
+
         body = json.loads(request.body)
+
+        print body
 
         # Event Fields
         name = body.get('name')
@@ -84,13 +90,13 @@ def family_event(request):
         year = body.get('year')
         date = body.get('date')
         image = body.get('image')
-        index = len(FamilyEvent.objects.filter(year=year)) # add to end of list
+        index = len(TimelineEntry.objects.filter(year=year)) # add to end of list
 
         # Story Fields
         story_description = body.get('story_description')
 
         new_event = FamilyEvent(
-                        entry_type = 'FAMILY_EVENT',
+                        entry_type = TimelineEntryTypes.FAMILY_EVENT,
                         name = name,
                         description = event_description,
                         year = year,
@@ -110,6 +116,58 @@ def family_event(request):
                         )
 
             new_story.save()
+        
+        return HttpResponse("Success")
+
+    else:
+        raise ValueError('Unsupported HTTP Request Method')
+
+
+@csrf_exempt
+def historical_event(request):
+    """
+    Create an event and insert it into database
+    Required Fields:
+     - name
+     - year
+
+    Optional Fields:
+     - event_description
+     - date
+     - link
+    """
+    if request.method == POST:
+        logged_in_user = User.objects.get(pk=1)
+
+        print request.body
+
+        body = json.loads(request.body)
+
+        print body
+
+        # Historical Event Fields
+        name = body.get('name')
+        event_description = body.get('event_description')
+        year = body.get('year')
+        date = body.get('date')
+        image = body.get('image')
+        link = body.get('link')
+        index = len(FamilyEvent.objects.filter(year=year)) # add to end of list
+        
+
+        new_event = HistoricalEvent(
+                        entry_type = TimelineEntryTypes.HISTORICAL_EVENT,
+                        name = name,
+                        description = event_description,
+                        year = year,
+                        date = date,
+                        image = image,
+                        link = link,
+                        publisher = logged_in_user,
+                        index = index
+                    )
+
+        new_event.save()
         
         return HttpResponse("Success")
 

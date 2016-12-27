@@ -49,7 +49,7 @@ class HistoricalEvent(TimelineEntry):
     date = models.DateField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
-    link = models.URLField(max_length=200)
+    link = models.URLField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return "Historical Event " + self.name
