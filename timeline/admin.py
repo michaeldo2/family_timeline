@@ -1,11 +1,16 @@
 from django.contrib import admin
 
-from .models import Comment
-from .models import Event
-from .models import Story
-# Register your models here.
+from .models import FamilyEvent
+from .models import HistoricalEvent
+from .models import TimelineImage
+from .models import TimelineStory
+from .models import FamilyEventStory
+from .models import TimelineEntry
 
 
-admin.site.register(Comment)
-admin.site.register(Event)
-admin.site.register(Story)
+admin.site.register(FamilyEvent)
+admin.site.register(HistoricalEvent)
+admin.site.register(TimelineImage)
+admin.site.register(TimelineStory)
+admin.site.register(FamilyEventStory)
+admin.site.register(TimelineEntry)
