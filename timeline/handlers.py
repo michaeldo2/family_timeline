@@ -76,7 +76,7 @@ def family_event(request):
         # Shared Fields
         logged_in_user = User.objects.get(pk=1)
 
-        body = QueryDict(request.body)
+        body = json.loads(request.body)
 
         # Event Fields
         name = body.get('name')
