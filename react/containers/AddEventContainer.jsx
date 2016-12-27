@@ -6,6 +6,7 @@ import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import AddEventForm from '../components/AddEventForm';
 import {createEvent} from '../helpers/RequestHelper';
+import FormNotificationBar from '../components/FormNotificationBar';
 
 
 /**
@@ -27,7 +28,14 @@ export default class DialogExampleSimple extends React.Component {
   }
 
   createNewEvent() {
-    createEvent(this.state.name, this.state.description, this.state.year);
+    var self = this;
+    createEvent(this.state.name, this.state.description, this.state.year)
+    .then(function (response) {
+      self.props.updateTimelineEvents();
+    })
+    .catch(function(error) {
+      console.log(error)
+    });
     this.handleClose();
   }
 

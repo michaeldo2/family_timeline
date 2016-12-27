@@ -18,13 +18,7 @@ function createEvent(name, description, year) {
 		year: year
 	}, {
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-	}).then(function (response) {
-		return response;
-	})
-	.catch(function (error) {
-		console.log(error);
-		return null;
-	})
+	});
 
 
 }
