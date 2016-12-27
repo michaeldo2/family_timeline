@@ -25,22 +25,6 @@ GET = 'GET'
 # Create your api handlers here.
 
 def events(request):
-    """
-    Returns a list following event fields:
-     - publisher
-        - first_name
-        - last_name
-        - id
-     - name
-     - description
-     - date
-     - id
-     - [stories]
-        - id
-        - publisher
-        - description
-     - num_stories
-    """
     if request.method == GET:
         entry_objs = TimelineEntry.objects.order_by('year', 'index').select_subclasses()
         entries_by_year = {}
@@ -59,22 +43,6 @@ def events(request):
 
 
 def event(request, event_id):
-    """
-    Returns the following event fields:
-     - publisher
-        - first_name
-        - last_name
-        - id
-     - name
-     - description
-     - date
-     - id
-     - [stories]
-        - id
-        - publisher
-        - description
-     - num_stories
-    """
     if request.method == GET:
         event_obj = Event.objects.get(pk=event_id)
         event = get_event_dict(event_obj)
@@ -90,7 +58,7 @@ def event(request, event_id):
 
 
 @csrf_exempt
-def event(request):
+def family_event(request):
     """
     Create an event and insert it into database
     Required Fields:
@@ -105,7 +73,7 @@ def event(request):
     """
     if request.method == POST:
         # Shared Fields
-        logged_in_user = User.objects.get(pk=2)
+        logged_in_user = get_user(request.user)
 
         # Event Fields
         name = request.POST.get('name')
@@ -113,12 +81,13 @@ def event(request):
         year = request.POST.get('year')
         date = request.POST.get('date')
         image = request.POST.get('image')
-        index = len(Event.objects.filter(year=year)) # add to end of list
+        index = len(FamilyEvent.objects.filter(year=year)) # add to end of list
 
         # Story Fields
         story_description = request.POST.get('story_description')
 
-        new_event = Event(
+        new_event = FamilyEvent(
+                        entry_type = 'FAMILY_EVENT',
                         name = name,
                         description = event_description,
                         year = year,
@@ -131,8 +100,8 @@ def event(request):
         new_event.save()
 
         if (story_description):
-            new_story = Story(
-                            event = new_event,
+            new_story = FamilyEventStory(
+                            family_event = new_event,
                             description = story_description,
                             publisher = logged_in_user
                         )

@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^event/(?P<event_id>[0-9]+)$', handlers.event),
 
     # POST - add an event
-    url(r'^event/$', handlers.event),
+    url(r'^family_event/$', handlers.family_event),
 ]
