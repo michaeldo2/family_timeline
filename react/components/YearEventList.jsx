@@ -5,6 +5,19 @@ import FlatButton from 'material-ui/FlatButton';
 
 class YearEventList extends React.Component {
 
+    constructor() {
+        super()
+        this.state= {
+            showEvents: true
+        }
+    }
+
+    toggleEvents() {
+        this.setState({
+            showEvents: !this.state.showEvents
+        });
+    }
+
     render() {
     	var events = this.props.events;
     	var eventComponents = [];
@@ -27,17 +40,40 @@ class YearEventList extends React.Component {
         var labelStyle = {
             color: "white"
         }
-    	return (
-    		<Paper style={paperStyle}>
-                <FlatButton 
-                    label={this.props.year}
-                    labelStyle={labelStyle}
-                />
-                <div style={listStyle}>
-    			    {eventComponents}
-                </div>
-    		</Paper>
-    	);
+        var dotStyle = {
+            backgroundColor: '#0097A7',
+            position: 'absolute',
+            width: '32px',
+            height: '32px',
+            transform: 'translateX(-80px)'
+        }
+
+        if (this.state.showEvents) {
+        	return (
+        		<Paper style={paperStyle}>
+                    <Paper style={dotStyle} circle={true}/>
+                    <FlatButton 
+                        label={this.props.year}
+                        labelStyle={labelStyle}
+                        onTouchTap={this.toggleEvents.bind(this)}
+                    />
+                    <div style={listStyle}>
+        			    {eventComponents}
+                    </div>
+        		</Paper>
+        	);
+        } else {
+            return (
+                <Paper style={paperStyle}>
+                    <Paper style={dotStyle} circle={true}/>
+                    <FlatButton 
+                        label={this.props.year}
+                        labelStyle={labelStyle}
+                        onTouchTap={this.toggleEvents.bind(this)}
+                    />
+                </Paper>
+            );
+        }
     }
 }
 

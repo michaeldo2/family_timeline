@@ -5,19 +5,17 @@ class Event extends React.Component {
 
     render() {
     	return (
-    		<div onClick={this.props.toggleDetails}>
-				<Card>
-				    <CardHeader
-						title={this.props.name}
-						subtitle={this.props.date}
-						actAsExpander={true}
-						showExpandableButton={true}
-				    />
-				    <CardText expandable={true}>
-				      	{this.props.description}
-				    </CardText>
-				</Card>
-    		</div>
+			<Card>
+			    <CardHeader
+					title={this.props.name}
+					subtitle={this.props.date}
+					actAsExpander={true}
+					showExpandableButton={true}
+			    />
+			    <CardText expandable={true}>
+			      	{this.props.description}
+			    </CardText>
+			</Card>
     	);
     }
 }

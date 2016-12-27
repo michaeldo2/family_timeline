@@ -14,17 +14,20 @@ class AddEventForm extends React.Component {
             		hintText="Name"
             		value = {this.props.name}
             		onChange = {this.props.saveName}
-          		/>
-          		<TextField
-            		hintText="Event Description"
-            		value = {this.props.description}
-            		onChange = {this.props.saveDescription}
-          		/>
+          		/><br/>
           		<TextField
             		hintText="Year"
             		value = {this.props.year}
             		onChange = {this.props.saveYear}
           		/>
+              <TextField
+                hintText="Event Description"
+                value = {this.props.description}
+                onChange = {this.props.saveDescription}
+                multiLine={true}
+                rows={5}
+                fullWidth={true}
+              />
           	</div>
 		);
 	}

@@ -7,3 +7,7 @@
 .timeline_event_link {
 	text-decoration: none;
 }
+
+body {
+	margin: 0;
+}
