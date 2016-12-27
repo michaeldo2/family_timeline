@@ -1,6 +1,7 @@
 import json
 
 from django.http import HttpResponse
+from django.http import QueryDict
 from django.core import serializers
 from django.utils.encoding import force_text
 from django.contrib.auth import get_user
@@ -75,16 +76,18 @@ def family_event(request):
         # Shared Fields
         logged_in_user = User.objects.get(pk=1)
 
+        body = QueryDict(request.body)
+
         # Event Fields
-        name = request.POST.get('name')
-        event_description = request.POST.get('event_description')
-        year = request.POST.get('year')
-        date = request.POST.get('date')
-        image = request.POST.get('image')
+        name = body.get('name')
+        event_description = body.get('event_description')
+        year = body.get('year')
+        date = body.get('date')
+        image = body.get('image')
         index = len(FamilyEvent.objects.filter(year=year)) # add to end of list
 
         # Story Fields
-        story_description = request.POST.get('story_description')
+        story_description = body.get('story_description')
 
         new_event = FamilyEvent(
                         entry_type = 'FAMILY_EVENT',
