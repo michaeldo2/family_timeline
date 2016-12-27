@@ -63,7 +63,7 @@ def event(request, event_id):
 @csrf_exempt
 def family_event(request):
     """
-    Create an event and insert it into database
+    Create a family event and insert it into database
     Required Fields:
      - name
      - event_description
@@ -78,11 +78,7 @@ def family_event(request):
         # Shared Fields
         logged_in_user = User.objects.get(pk=1)
 
-        print request.body
-
         body = json.loads(request.body)
-
-        print body
 
         # Event Fields
         name = body.get('name')
@@ -126,7 +122,7 @@ def family_event(request):
 @csrf_exempt
 def historical_event(request):
     """
-    Create an event and insert it into database
+    Create a historical event and insert it into database
     Required Fields:
      - name
      - year
@@ -139,11 +135,7 @@ def historical_event(request):
     if request.method == POST:
         logged_in_user = User.objects.get(pk=1)
 
-        print request.body
-
         body = json.loads(request.body)
-
-        print body
 
         # Historical Event Fields
         name = body.get('name')
@@ -152,7 +144,7 @@ def historical_event(request):
         date = body.get('date')
         image = body.get('image')
         link = body.get('link')
-        index = len(FamilyEvent.objects.filter(year=year)) # add to end of list
+        index = len(TimelineEntry.objects.filter(year=year)) # add to end of list
         
 
         new_event = HistoricalEvent(
@@ -168,6 +160,49 @@ def historical_event(request):
                     )
 
         new_event.save()
+        
+        return HttpResponse("Success")
+
+    else:
+        raise ValueError('Unsupported HTTP Request Method')
+
+
+@csrf_exempt
+def timeline_story(request):
+    """
+    Create a timeline story and insert it into database
+    Required Fields:
+     - name
+     - timeline_story_description
+     - year
+
+    """
+    if request.method == POST:
+        logged_in_user = User.objects.get(pk=1)
+
+        print request.body
+
+        body = json.loads(request.body)
+
+        print body
+
+        # Timeline Story Fields
+        name = body.get('name')
+        timeline_story_description = body.get('timeline_story_description')
+        year = body.get('year')
+        index = len(TimelineEntry.objects.filter(year=year)) # add to end of list
+        
+
+        new_story = TimelineStory(
+                        entry_type = TimelineEntryTypes.TIMELINE_STORY,
+                        name = name,
+                        description = timeline_story_description,
+                        year = year,
+                        publisher = logged_in_user,
+                        index = index
+                    )
+
+        new_story.save()
         
         return HttpResponse("Success")
 

@@ -14,4 +14,7 @@ urlpatterns = [
 
     # POST - add a historical event
     url(r'^historical_event/$', handlers.historical_event),
+
+    # POST - add a timeline story
+    url(r'^timeline_story/$', handlers.timeline_story),
 ]
