@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.views import static
 
+from timeline import views
+
 urlpatterns = [
 	# website
     url(r'^', include('timeline.urls')),
@@ -29,8 +31,9 @@ urlpatterns = [
     # admin
     url(r'^admin/', admin.site.urls),
 
-    # login
-    url(r'^accounts/login/$', auth_views.login, {'template_name': 'timeline/login.html'}),
+    # auth
+    url(r'^login/$', views.login_url),
+    url(r'^logout/$', views.logout_url),
 
     # static
     url(r'^static/(?P<path>.*)$', static.serve, {
