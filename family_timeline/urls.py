@@ -32,7 +32,7 @@ urlpatterns = [
 
     # auth
     url(r'^login/$', views.login_url),
-    url(r'^login_action/', views.login_action)
+    url(r'^login_action/', views.login_action),
     url(r'^logout/$', views.logout_url),
 
     # static

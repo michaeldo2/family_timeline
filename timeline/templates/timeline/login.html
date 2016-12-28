@@ -1,1 +1,10 @@
-Poopy
+{% load render_bundle from webpack_loader %}
+
+<head>
+    <title>Login</title>
+</head>
+<body>
+	<div id="Login"></div>
+	{% render_bundle 'vendors' %}
+	{% render_bundle 'Login' %}
+</body>
