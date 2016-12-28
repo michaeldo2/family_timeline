@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -22,23 +24,31 @@ def index(request):
 
 
 def event(request, event_id):
-	event = get_object_or_404(Event, pk=event_id)
-	print event
-	context = {
-		'event': event,
-	}
-	return render(request, 'timeline/event.html', context)
+    event = get_object_or_404(Event, pk=event_id)
+    context = {
+        'event': event,
+    }
+    return render(request, 'timeline/event.html', context)
 
 
 def add_event(request):
-	return render(request, 'timeline/add_event.html')
+    return render(request, 'timeline/add_event.html')
 
 
 def login_url(request):
-	return render(request, 'timeline/login.html')
+    return render(request, 'timeline/login.html')
 
 def logout_url(request):
-	logout(request)
-	return HttpResponseRedirect('/login/')
+    logout(request)
+    return HttpResponseRedirect('/login/')
+
+def login_action(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)   
+    else:
+        pass
 
 

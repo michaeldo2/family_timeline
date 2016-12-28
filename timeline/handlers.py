@@ -165,11 +165,7 @@ def add_timeline_story(request):
     if request.method == POST:
         logged_in_user = request.user
 
-        print request.body
-
         body = json.loads(request.body)
-
-        print body
 
         # Timeline Story Fields
         name = body.get('name')
