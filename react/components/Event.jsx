@@ -16,10 +16,10 @@ class Event extends React.Component {
     		color = '#BBDEFB';
     		Icon = Group;
     	} else if (this.props.entry_type === 'HISTORICAL_EVENT') {
-    		color = '#FFCDD2';
+    		color = '#F5F5F5';
     		Icon = Globe;
     	} else if (this.props.entry_type === 'TIMELINE_STORY') {
-    		color = 'FFF9C4';
+    		color = 'B2DFDB';
     		Icon = LocalLibrary;
     	}
 
@@ -27,8 +27,12 @@ class Event extends React.Component {
     		backgroundColor: color
     	}
 
+    	var cardStyle = {
+    		margin: '10px 0'
+    	}
+
     	return (
-			<Card>
+			<Card style={cardStyle}>
 			    <CardHeader
 					title={this.props.name}
 					subtitle={this.props.date}
