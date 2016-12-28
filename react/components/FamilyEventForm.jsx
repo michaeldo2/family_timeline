@@ -47,25 +47,25 @@ class FamilyEventForm extends React.Component {
 	render() {
 		return (
 			<div>
-          		<TextField
-            		hintText="Name"
-            		value = {this.state.name}
-            		onChange = {this.saveName.bind(this)}
-          		/><br/>
-          		<TextField
-            		hintText="Year"
-            		value = {this.state.date}
-            		onChange = {this.saveDate.bind(this)}
-          		/>
-              <TextField
-                hintText="Event Description"
-                value = {this.state.description}
-                onChange = {this.saveDescription.bind(this)}
-                multiLine={true}
-                rows={5}
-                fullWidth={true}
-              />
-          	</div>
+    		<TextField
+      		hintText="Name"
+      		value = {this.state.name}
+      		onChange = {this.saveName.bind(this)}
+    		/><br/>
+    		<TextField
+      		hintText="Year"
+      		value = {this.state.date}
+      		onChange = {this.saveDate.bind(this)}
+    		/>
+        <TextField
+          hintText="Event Description"
+          value = {this.state.description}
+          onChange = {this.saveDescription.bind(this)}
+          multiLine={true}
+          rows={5}
+          fullWidth={true}
+        />
+    	</div>
 		);
 	}
 }
