@@ -4,9 +4,12 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
-import AddEventForm from '../components/AddEventForm';
-import {createEvent} from '../helpers/RequestHelper';
+import FamilyEventForm from '../components/FamilyEventForm';
+import HistoricalEventForm from '../components/HistoricalEventForm';
+import TimelineStoryForm from '../components/TimelineStoryForm';
 import FormNotificationBar from '../components/FormNotificationBar';
+import {Tabs, Tab} from 'material-ui/Tabs';
+
 
 const SUCCESS_NOTIFICATION_STYLE = {
   color: 'white'
@@ -25,25 +28,11 @@ export default class AddEventContainer extends React.Component {
       notificationMessage: "",
       notificationStyle: {},
       open: false,
-      name: "",
-      description: "",
-      year: ""
+      slideIndex: 0
     }
   }
 
-  createNewEvent() {
-    var self = this;
-    createEvent(this.state.name, this.state.description, this.state.year)
-    .then(function (response) {
-      self.props.updateTimelineEvents();
-      self.notifyEventStatus(true);
-    })
-    .catch(function(error) {
-      self.notifyEventStatus(false);
-      console.log(error)
-    });
-    this.handleClose();
-  }
+  
 
   notifyEventStatus(success) {
     if (success) {
@@ -61,24 +50,23 @@ export default class AddEventContainer extends React.Component {
     }
   }
 
+  createEventType() {
+    if (this.state.slideIndex === 0) {
+      this.refs.familyevent.createNewEvent();
+    }
+    else if (this.state.slideIndex === 1) {
+      this.refs.historicalevent.createNewEvent();
+    }
+    else if (this.state.slideIndex === 2) {
+      this.refs.timelinestory.createNewEvent();
+    }
+  }
+
   onCloseNotification() {
     this.setState({
       notificationOpen: false
     })
   }
-
-  saveName(event) {
-    this.setState({name: event.target.value})
-  }
-
-  saveDescription(event) {
-    this.setState({description: event.target.value})
-  }
-
-  saveYear(event) {
-    this.setState({year: event.target.value})
-  }
-
 
   handleOpen = () => {
     this.setState({open: true});
@@ -86,6 +74,12 @@ export default class AddEventContainer extends React.Component {
 
   handleClose = () => {
     this.setState({open: false});
+  };
+
+  handleTabChange = (value) => {
+    this.setState({
+      slideIndex: value,
+    });
   };
 
   render() {
@@ -99,7 +93,7 @@ export default class AddEventContainer extends React.Component {
         label="Save"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.createNewEvent.bind(this)}
+        onTouchTap={this.createEventType.bind(this)}
       />,
     ];
 
@@ -113,14 +107,35 @@ export default class AddEventContainer extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-          <AddEventForm
-            saveName = {this.saveName.bind(this)}
-            saveDescription = {this.saveDescription.bind(this)}
-            saveYear = {this.saveYear.bind(this)}
-            name = {this.state.name}
-            description = {this.state.description}
-            year = {this.state.year}
-          />
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleTabChange}
+          >
+            <Tab label="Family Event" value={0} >
+              <FamilyEventForm
+                ref="familyevent"
+                notifyEventStatus={this.notifyEventStatus.bind(this)}
+                updateTimelineEvents={this.props.updateTimelineEvents}
+                handleClose={this.handleClose.bind(this)}
+              />
+            </Tab>
+            <Tab label="Historical Event" value={1}>
+              <HistoricalEventForm
+                ref="historicalevent"
+                notifyEventStatus={this.notifyEventStatus.bind(this)}
+                updateTimelineEvents={this.props.updateTimelineEvents}
+                handleClose={this.handleClose.bind(this)}
+              />
+            </Tab>
+            <Tab label="Timeline Story" value={2}>
+              <TimelineStoryForm
+                ref="timelinestory"
+                notifyEventStatus={this.notifyEventStatus.bind(this)}
+                updateTimelineEvents={this.props.updateTimelineEvents}
+                handleClose={this.handleClose.bind(this)}
+              />
+            </Tab>
+          </Tabs>
         </Dialog>
         <FormNotificationBar
             open={this.state.notificationOpen}
