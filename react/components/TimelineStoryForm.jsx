@@ -47,25 +47,25 @@ class TimelineStoryForm extends React.Component {
 	render() {
 		return (
 			<div>
-          		<TextField
-            		hintText="Name"
-            		value = {this.state.name}
-            		onChange = {this.saveName.bind(this)}
-          		/><br/>
-          		<TextField
-            		hintText="Year"
-            		value = {this.state.year}
-            		onChange = {this.saveYear.bind(this)}
-          		/>
-              <TextField
-                hintText="Timeline Story Description"
-                value = {this.state.timeline_story_description}
-                onChange = {this.saveTimelineStoryDescription.bind(this)}
-                multiLine={true}
-                rows={5}
-                fullWidth={true}
-              />
-          	</div>
+    		<TextField
+      		hintText="Name"
+      		value = {this.state.name}
+      		onChange = {this.saveName.bind(this)}
+    		/><br/>
+    		<TextField
+      		hintText="Year"
+      		value = {this.state.year}
+      		onChange = {this.saveYear.bind(this)}
+    		/>
+        <TextField
+          hintText="Timeline Story Description"
+          value = {this.state.timeline_story_description}
+          onChange = {this.saveTimelineStoryDescription.bind(this)}
+          multiLine={true}
+          rows={5}
+          fullWidth={true}
+        />
+    	</div>
 		);
 	}
 }

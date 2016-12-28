@@ -83,6 +83,10 @@ export default class AddEventContainer extends React.Component {
   };
 
   render() {
+    var dialogContentStyle = {
+      overflowY: 'scroll'
+    }
+
     const actions = [
       <FlatButton
         label="Cancel"
@@ -106,6 +110,7 @@ export default class AddEventContainer extends React.Component {
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
+          bodyStyle={dialogContentStyle}
         >
           <Tabs
             value={this.state.value}
