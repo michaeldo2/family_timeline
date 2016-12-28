@@ -5,14 +5,16 @@ import TextField from 'material-ui/TextField';
 class AuthForm extends React.Component {
 	render() {
 		return (
-			<div>
+			<div onKeyDown={this.props.keyDownLogin}>
     		<TextField
-      		hintText="Username"
+          floatingLabelFixed={true}
+      		floatingLabelText="Username"
       		value = {this.props.username}
           onChange={this.props.saveUserName}
     		/><br/>
     		<TextField
-      		hintText="Password"
+          floatingLabelFixed={true}
+      		floatingLabelText="Password"
       		value = {this.props.password}
           onChange={this.props.savePassword}
           type="password"
