@@ -1,5 +1,4 @@
 import React from "react"
-import RequestHelper from "../helpers/RequestHelper"
 import Event from "../components/Event"
 
 

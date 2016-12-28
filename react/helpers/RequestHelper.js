@@ -19,12 +19,41 @@ function createEvent(name, description, year) {
 	}, {
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	});
+}
+
+function requestLogin(username, password) {
+	return axios.post('/login_action/', {
+		username: username,
+		password: password
+	}, {
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	});
+}
 
 
+function getCSRFToken() {
+	var name = 'csrftoken';
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(
+                  cookie.substring(name.length + 1)
+                  );
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
 
 module.exports = {
 	getTimelineEvents: getTimelineEvents,
-	createEvent: createEvent
+	createEvent: createEvent,
+	getCSRFToken: getCSRFToken,
+	requestLogin: requestLogin
 }
