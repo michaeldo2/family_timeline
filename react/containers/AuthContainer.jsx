@@ -15,7 +15,6 @@ export default class AuthContainer extends React.Component {
     }
   }
 
-
   saveUserName = (event) => {
     this.setState({userName: event.target.value})
   }
@@ -32,6 +31,12 @@ export default class AuthContainer extends React.Component {
     .catch(function (error) {
 
     });
+  }
+
+  keyDownLogin(event) {
+    if (event.keyCode === 13) {
+      this.login();
+    }
   }
 
   render() {
@@ -59,6 +64,7 @@ export default class AuthContainer extends React.Component {
       <AuthForm
         saveUserName={this.saveUserName}
         savePassword={this.savePassword}
+        keyDownLogin={this.keyDownLogin.bind(this)}
       />
       </Dialog>
     );
