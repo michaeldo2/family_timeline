@@ -38,7 +38,8 @@ class YearEventList extends React.Component {
             backgroundColor: "#00BCD4"
         }
         var labelStyle = {
-            color: "white"
+            color: "white",
+            fontSize: "32px"
         }
         var dotStyle = {
             backgroundColor: '#0097A7',
