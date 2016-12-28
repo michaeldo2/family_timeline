@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
 from django.views import static
 
 from timeline import views
@@ -33,6 +32,7 @@ urlpatterns = [
 
     # auth
     url(r'^login/$', views.login_url),
+    url(r'^login_action/', views.login_action)
     url(r'^logout/$', views.logout_url),
 
     # static

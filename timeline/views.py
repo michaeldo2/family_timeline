@@ -43,12 +43,14 @@ def logout_url(request):
     return HttpResponseRedirect('/login/')
 
 def login_action(request):
-    username = request.POST['username']
-    password = request.POST['password']
+    body = json.loads(request.body)
+    username = body.get('username')
+    password = body.get('password')
     user = authenticate(username=username, password=password)
     if user is not None:
-        login(request, user)   
+        login(request, user)
+        return HttpResponseRedirect('/') 
     else:
-        pass
+        return HttpResponse('Login Error')
 
 
