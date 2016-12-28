@@ -8,7 +8,7 @@ class EventContainer extends React.Component {
     	var event = this.props.event;
     	return (
     		<div>
-    			<Event id={event.id} name={event.name} date={event.date} description={event.description} publisher={this.props.publisher} />
+    			<Event entry_type={event.entry_type} id={event.id} name={event.name} date={event.date} description={event.description} publisher={this.props.publisher} />
     		</div>
     	);
     }
