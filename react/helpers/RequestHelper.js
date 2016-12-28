@@ -11,10 +11,29 @@ function getTimelineEvents() {
 	})
 }
 
-function createEvent(name, description, year) {
+function createFamilyEvent(name, description, year) {
 	return axios.post('api/family_event/', {
 		name: name,
 		event_description: description,
+		year: year
+	}, {
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	});
+}
+
+function createHistoricalEvent(name, year) {
+	return axios.post('api/historical_event/', {
+		name: name,
+		year: year
+	}, {
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	});
+}
+
+function createTimelineStory(name, timeline_story_description, year) {
+	return axios.post('api/timeline_story/', {
+		name: name,
+		timeline_story_description: timeline_story_description,
 		year: year
 	}, {
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -53,7 +72,9 @@ function getCSRFToken() {
 
 module.exports = {
 	getTimelineEvents: getTimelineEvents,
-	createEvent: createEvent,
+	createFamilyEvent: createFamilyEvent,
+	createHistoricalEvent: createHistoricalEvent,
+	createTimelineStory: createTimelineStory,
 	getCSRFToken: getCSRFToken,
 	requestLogin: requestLogin
 }
