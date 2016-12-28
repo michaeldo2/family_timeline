@@ -4,6 +4,7 @@ import AppBar from "material-ui/AppBar";
 import AddEventContainer from "./AddEventContainer"
 import RequestHelper from "../helpers/RequestHelper"
 import Paper from "material-ui/Paper";
+import MenuOptionsIcon from "../components/MenuOptionsIcon";
 
 
 class ViewContainer extends React.Component {
@@ -49,6 +50,7 @@ class ViewContainer extends React.Component {
 	    		<Paper style={lineStyle} zDepth={2}/>
 	    		<AppBar 
 	    			title="Family Timeline"
+	    			iconElementLeft={<MenuOptionsIcon />}
 	    			iconElementRight={<AddEventContainer updateTimelineEvents={this.updateTimelineEvents.bind(this)}/>}
 	    		/>
 	    		<div style={timelineStyle}>
