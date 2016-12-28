@@ -20,10 +20,19 @@ from django.contrib.auth import views as auth_views
 from django.views import static
 
 urlpatterns = [
+	# website
     url(r'^', include('timeline.urls')),
+
+    # api
     url(r'^api/', include('timeline.api')),
+
+    # admin
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/login/$', auth_views.login, {'template_name': 'admin/login.html'}),
+
+    # login
+    url(r'^accounts/login/$', auth_views.login, {'template_name': 'timeline/login.html'}),
+
+    # static
     url(r'^static/(?P<path>.*)$', static.serve, {
     	'document_root': settings.STATIC_ROOT
     })
