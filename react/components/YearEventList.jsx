@@ -30,7 +30,7 @@ class YearEventList extends React.Component {
         })
 
         var listStyle = {
-            paddingLeft: "32px"
+            paddingLeft: "24px"
         }
 
         var paperStyle = {
