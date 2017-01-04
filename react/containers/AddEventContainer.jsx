@@ -107,7 +107,7 @@ export default class AddEventContainer extends React.Component {
         <Dialog
           title="Enter your event here"
           actions={actions}
-          modal={false}
+          modal={true}
           open={this.state.open}
           onRequestClose={this.handleClose}
           bodyStyle={dialogContentStyle}
