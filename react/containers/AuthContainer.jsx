@@ -54,18 +54,29 @@ export default class AuthContainer extends React.Component {
       />,
     ];
 
+    var backgroundStyle = {
+      backgroundImage: 'url(https://i.imgur.com/vUwkxDH.jpg)',
+      backgroundSize: '100% 100%'
+    }
+
+    var loginStyle = {
+      opacity: '0.85'
+    }
+
     return (
       <Dialog
-          title="Log in or Sign up to access your Timeline"
-          actions={actions}
-          modal={true}
-          open={true}
-        >
-      <AuthForm
-        saveUserName={this.saveUserName}
-        savePassword={this.savePassword}
-        keyDownLogin={this.keyDownLogin.bind(this)}
-      />
+        title="Log in or Sign up to access your Timeline"
+        actions={actions}
+        modal={true}
+        open={true}
+        contentStyle={loginStyle}
+        style={backgroundStyle}
+      >
+        <AuthForm
+          saveUserName={this.saveUserName}
+          savePassword={this.savePassword}
+          keyDownLogin={this.keyDownLogin.bind(this)}
+        />
       </Dialog>
     );
   }
